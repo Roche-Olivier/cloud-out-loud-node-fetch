@@ -1,0 +1,20 @@
+{
+  "name": "cloud-out-loud-node-fetch",
+  "version": "1.0.1",
+  "description": "node fetch for API sites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "mode-fetch",
+    "api",
+    "api calls"
+  ],
+  "author": "Roche OLivier",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}
