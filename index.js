@@ -64,14 +64,24 @@ exports.execute = function (verb, url, token, json_string, callback) {
                 return res
             }
         }).then(function (res) {
-
-            if (_response_code === "200" || _response_code === "201") {
+            if (_response_code === "200" || _response_code === "201" || _response_code === "204") {
                 console.log('NODEFETCH::EVENT::SUCCESS - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ');
                 callback(res, false, _response_code)
-
             } else {
                 if (_type === "json_error") {
-                    console.log('NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[' + res.error + '] ');
+                    if (res.meta) {
+                        if (res.meta === "Emails/Sentiment") {
+                            if (res.code === 404) {
+                                console.log('NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[Document not found] ');
+                            } else {
+                                console.log('NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[' + JSON.stringify(res.data) + '] ');
+                            }
+                        } else {
+                            console.log('NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[' + JSON.stringify(res.data) + '] ');
+                        }
+                    } else {
+                        console.log('NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[' + JSON.stringify(res.error) + '] ');
+                    }
                     callback(res.error, true, _response_code)
                 } else {
                     console.log('NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ');
@@ -153,18 +163,18 @@ exports.execute_async = async function (verb, url, token, json_string) {
             return res
         }
     }).then(function (res) {
-        if (_response_code === "200" || _response_code === "201") {
+        if (_response_code === "200" || _response_code === "201" || _response_code === "204") {
             var msg = 'NODEFETCH::EVENT::SUCCESS - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ';
             console.log(msg)
             if (res.data) {
                 var result = {
-                    "status": "200",
+                    "status": _response_code,
                     "data": res.data
                 }
                 return result
             } else {
                 var result = {
-                    "status": "200",
+                    "status": _response_code,
                     "data": res
                 }
                 return result
