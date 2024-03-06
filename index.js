@@ -182,11 +182,18 @@ exports.execute_async = async function (verb, url, token, json_string) {
 
         } else {
             if (_type === "json_error") {
-                var msg = 'NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[' + JSON.stringify(res.error) + '] ';
+                var _ret_message = ""
+                if (res.error) {
+                    _ret_message = res.error
+                } else {
+                    _ret_message = res.message
+                }
+
+                var msg = 'NODEFETCH::EVENT::FAIL - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ' + ' - Error:[' + JSON.stringify(_ret_message) + '] ';
                 console.log(msg)
                 var result = {
                     "status": _response_code,
-                    "data": res.error // this has not been tested
+                    "data": _ret_message // this has not been tested
                 }
                 return result
             } else if (_type === "json") {
