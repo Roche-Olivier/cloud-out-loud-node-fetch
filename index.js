@@ -64,7 +64,7 @@ exports.execute = function (verb, url, token, json_string, callback) {
                 return res
             }
         }).then(function (res) {
-            if (_response_code === "200" || _response_code === "201" || _response_code === "204") {
+            if (_response_code === "200" || _response_code === "201" || _response_code === "202" || _response_code === "204") {
                 console.log('NODEFETCH::EVENT::SUCCESS - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ');
                 callback(res, false, _response_code)
             } else {
@@ -163,7 +163,7 @@ exports.execute_async = async function (verb, url, token, json_string) {
             return res
         }
     }).then(function (res) {
-        if (_response_code === "200" || _response_code === "201" || _response_code === "204") {
+        if (_response_code === "200" || _response_code === "201" || _response_code === "202" || _response_code === "204") {
             var msg = 'NODEFETCH::EVENT::SUCCESS - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ';
             console.log(msg)
             if (res.data) {
@@ -242,7 +242,7 @@ exports.execute_async = async function (verb, url, token, json_string) {
 
     if (res) {
         if (res.status) {
-            if (res.status.toString() === "200" || res.status.toString() === "201" || res.status.toString() === "204") {
+            if (res.status.toString() === "200" || res.status.toString() === "201" || res.status.toString() === "202" || res.status.toString() === "204") {
                 console.log(res)
                 return_json.success = true
                 return_json.data = res.data
@@ -330,7 +330,7 @@ exports.execute_key_async = async function (url, token) {
             return res
         }
     }).then(function (res) {
-        if (_response_code === "200" || _response_code === "201" || _response_code === "204") {
+        if (_response_code === "200" || _response_code === "201" || _response_code === "202" || _response_code === "204") {
             var msg = 'NODEFETCH::EVENT::SUCCESS - ' + 'Type:[' + _type + ']' + ' - Code:[' + _response_code + '] ' + ' - Uri:[' + _url + '] ';
             console.log(msg)
             if (res.data) {
@@ -409,7 +409,7 @@ exports.execute_key_async = async function (url, token) {
 
     if (res) {
         if (res.status) {
-            if (res.status.toString() === "200" || res.status.toString() === "201" || res.status.toString() === "204") {
+            if (res.status.toString() === "200" || res.status.toString() === "201" || res.status.toString() === "202" || res.status.toString() === "204") {
                 console.log(res)
                 return_json.success = true
                 return_json.data = res.data
