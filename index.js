@@ -433,3 +433,47 @@ exports.execute_key_async = async function (url, token) {
 
     return return_json;
 };
+
+exports.execute_async_without_resp_data = async function(verb, url, token, json_string) {
+
+    var opts = {}
+    if (token) {
+        opts = {
+            method: verb,
+            body: json_string,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+        }
+    } else {
+        opts = {
+            method: verb,
+            body: json_string,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        }
+    }
+
+    const res = await fetch(url, opts);
+    const data = await res;
+
+    var return_json = {
+        success: false,
+        data: null,
+        httpStatusCode: 500,
+    }
+    if (data.status === 200) {
+        return_json.success = true
+        return_json.data = data.statusText
+        return_json.httpStatusCode = 200
+    } else {
+        return_json.success = false
+        return_json.data = data.statusText
+        return_json.httpStatusCode = data.status
+    }
+    return return_json;
+};

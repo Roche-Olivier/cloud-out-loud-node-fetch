@@ -1,6 +1,6 @@
 {
   "name": "cloud-out-loud-node-fetch",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "node fetch for API sites",
   "main": "index.js",
   "scripts": {
