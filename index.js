@@ -243,12 +243,12 @@ exports.execute_async = async function (verb, url, token, json_string) {
     if (res) {
         if (res.status) {
             if (res.status.toString() === "200" || res.status.toString() === "201" || res.status.toString() === "202" || res.status.toString() === "204") {
-                console.log(res)
+                // console.log(res)
                 return_json.success = true
                 return_json.data = res.data
                 return_json.httpStatusCode = res.status
             } else {
-                console.log(res)
+                // console.log(res)
                 return_json.success = false
                 return_json.data = res.data
                 return_json.httpStatusCode = (res.status) * 1
